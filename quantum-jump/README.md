@@ -12,7 +12,7 @@ Run `python3 -m http.server 8080` from this folder, then open `http://localhost:
 
 GitHub Pages serves this folder. Supabase provides authentication, protected PostgreSQL records, private resource storage and the `quantum-jump` Edge Function. The frontend configuration contains only the public project URL and publishable key. Never put a service-role key or model key in frontend code.
 
-Database definitions are in `backend/schema.sql`. The deployment adds a one-time educator invitation separately; invitation secrets are never committed. Each student can read or change only their own progress, tasks, notes and conversations. Educator privileges are not editable by students. Original educator resources are attributed to Simoné; external papers retain their publisher attribution.
+Database definitions are in `backend/schema.sql`; apply `backend/lessons.sql` afterwards to seed the curriculum on a new project. The deployment adds a one-time educator invitation separately; invitation secrets are never committed. Each student can read or change only their own progress, tasks, notes and conversations. Educator privileges are not editable by students. Original educator resources are attributed to Simoné; external papers retain their publisher attribution.
 
 The Edge Function validates each authenticated request through Supabase Auth itself. Its gateway JWT check is disabled to accommodate current signing keys and public GET health checks; POST operations still require a real user session. Admin actions additionally require a database-controlled educator role. Secret configuration functions are executable only by the service role.
 

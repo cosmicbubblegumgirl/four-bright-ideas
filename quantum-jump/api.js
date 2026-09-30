@@ -1,5 +1,6 @@
 import {config} from './config.js';
 const SESSION_KEY='quantum-jump-session';
+const emailRedirect=()=>'?redirect_to='+encodeURIComponent(location.origin+location.pathname);
 const parse=(s,f=null)=>{try{return JSON.parse(s)||f}catch{return f}};
 let session=parse(localStorage.getItem(SESSION_KEY));let refreshing;
 function setSession(value){session=value;value?localStorage.setItem(SESSION_KEY,JSON.stringify(value)):localStorage.removeItem(SESSION_KEY);}
@@ -18,11 +19,11 @@ async function raw(path,{method='GET',body,headers={},auth=true}={}){
 export const api={
  get session(){return session},
  async login(email,password){const s=await raw('/auth/v1/token?grant_type=password',{method:'POST',body:{email,password},auth:false});setSession({...s,expires_at:s.expires_at||Math.floor(Date.now()/1000)+s.expires_in});return s;},
- async signup(email,password,name){const s=await raw('/auth/v1/signup',{method:'POST',body:{email,password,data:{display_name:name}},auth:false});if(s.access_token)setSession({...s,expires_at:s.expires_at||Math.floor(Date.now()/1000)+s.expires_in});return s;},
+ async signup(email,password,name){const s=await raw('/auth/v1/signup'+emailRedirect(),{method:'POST',body:{email,password,data:{display_name:name}},auth:false});if(s.access_token)setSession({...s,expires_at:s.expires_at||Math.floor(Date.now()/1000)+s.expires_in});return s;},
  async confirm(email,token){const s=await raw('/auth/v1/verify',{method:'POST',body:{email,token,type:'signup'},auth:false});if(s.access_token)setSession({...s,expires_at:s.expires_at||Math.floor(Date.now()/1000)+s.expires_in});return s;},
- async resend(email){return raw('/auth/v1/resend',{method:'POST',body:{email,type:'signup'},auth:false});},
- async logout(){if(session)await raw('/auth/v1/logout?scope=local',{method:'POST'});setSession(null);},
- async recover(email){return raw('/auth/v1/recover',{method:'POST',body:{email},auth:false});},
+ async resend(email){return raw('/auth/v1/resend'+emailRedirect(),{method:'POST',body:{email,type:'signup'},auth:false});},
+ async logout(){try{if(session)await raw('/auth/v1/logout?scope=local',{method:'POST'});}catch{}finally{setSession(null);}},
+ async recover(email){return raw('/auth/v1/recover'+emailRedirect(),{method:'POST',body:{email},auth:false});},
  async recoveryCode(email,token,password){const s=await raw('/auth/v1/verify',{method:'POST',body:{email,token,type:'recovery'},auth:false});setSession({...s,expires_at:s.expires_at||Math.floor(Date.now()/1000)+s.expires_in});return raw('/auth/v1/user',{method:'PUT',body:{password}});},
  async password(password){return raw('/auth/v1/user',{method:'PUT',body:{password}});},
  async user(){return raw('/auth/v1/user')},
