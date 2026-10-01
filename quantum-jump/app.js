@@ -3,7 +3,7 @@ import {api} from './api.js';
 import {simulations,simulationView} from './simulations.js';
 import {papers} from './data/papers.js';
 import {videos} from './data/videos.js?v=20261001-library60';
-import {videoLibrary,mountVideoLibraries} from './video-library.js?v=20261001-library60';
+import {videoLibrary,mountVideoLibraries} from './video-library.js?v=20261001-library60b';
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const parse=(s,f)=>{try{return JSON.parse(s)||f}catch{return f}};

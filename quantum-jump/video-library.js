@@ -46,3 +46,5 @@ document.addEventListener('click',event=>{
  if(button.hasAttribute('data-video-reset')){root.querySelectorAll('[data-video-filter]').forEach(el=>{el.value=''});Object.assign(state,{page:0,query:'',topic:root.dataset.topic,kind:'',source:''})}else state.page+=Number(button.dataset.videoPage);
  renderResults(root,true);
 });
+
+document.addEventListener('error',event=>{if(event.target instanceof HTMLImageElement&&event.target.closest('.video-play'))event.target.hidden=true},true);
