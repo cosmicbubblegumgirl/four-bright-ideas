@@ -1,3 +1,9 @@
 portfolio.sqlite3
 __pycache__/
 .DS_Store
+
+# Internal teaching studio files
+quantum-jump/backend/
+quantum-jump/tests/
+quantum-jump/package.json
+quantum-jump/*.md
