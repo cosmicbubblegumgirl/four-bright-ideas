@@ -1,0 +1,17 @@
+{
+  "name": "Plot Twist \u2014 Grade 12 Maths",
+  "short_name": "Plot Twist",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7ff",
+  "theme_color": "#203780",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

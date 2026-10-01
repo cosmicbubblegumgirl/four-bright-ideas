@@ -7,3 +7,10 @@ quantum-jump/backend/
 quantum-jump/tests/
 quantum-jump/package.json
 quantum-jump/*.md
+
+# Teaching studio source stays outside the published maths folder
+plot-twist/backend/
+plot-twist/tests/
+plot-twist/package.json
+plot-twist/BUILD*
+plot-twist/RELEASE*
