@@ -33,15 +33,21 @@ Deno.serve(async(req:Request)=>{
   }
   const educator=(await db(`qj_educators?user_id=eq.${user.id}&select=user_id`,undefined,'GET')).length>0;
   let settings=await db('rpc/qj_ai_configuration',{});
-  if(!settings&&Deno.env.get('GEMINI_API_KEY'))settings={provider:'gemini',api_key:Deno.env.get('GEMINI_API_KEY'),model:'gemini-2.5-flash'};
+  if(!settings&&Deno.env.get('GEMINI_API_KEY'))settings={provider:'gemini',api_key:Deno.env.get('GEMINI_API_KEY'),model:'gemini-3.8-flash'};
   if(data.action==='status')return reply({educator,mode:settings?'ai':'study-guide',configured:!!settings,provider:educator&&settings?settings.provider:null,model:educator&&settings?settings.model:null});
   if(data.action==='configure'){
    if(!educator)return reply({error:'Educator access is required.'},403);
    if(data.provider!=='gemini'||typeof data.api_key!=='string'||data.api_key.length<15||data.api_key.length>300||!/^gemini-[a-zA-Z0-9.-]+$/.test(data.model))return reply({error:'Enter a valid Gemini key and model name.'},400);
-   const test=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(data.model)}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':data.api_key},body:JSON.stringify({contents:[{parts:[{text:'Reply with the single word ready.'}]}],generationConfig:{maxOutputTokens:100}})});
-   if(!test.ok)return reply({error:`The model connection failed (${test.status}). Check the key, billing and model access.`},400);
-   await db('rpc/qj_ai_configuration',{p_provider:'gemini',p_key:data.api_key,p_model:data.model});
-   return reply({ok:true,mode:'ai'});
+   const models=[...new Set([data.model,'gemini-3.8-flash'])];
+   let connectedModel='';let lastStatus=0;
+   for(const model of models){
+    const test=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':data.api_key},body:JSON.stringify({contents:[{parts:[{text:'Reply with the single word ready.'}]}],generationConfig:{maxOutputTokens:100}})});
+    if(test.ok){connectedModel=model;break}
+    lastStatus=test.status;
+   }
+   if(!connectedModel)return reply({error:`Google rejected the model connection (${lastStatus}). Create a fresh Gemini auth key in Google AI Studio and try again.`},400);
+   await db('rpc/qj_ai_configuration',{p_provider:'gemini',p_key:data.api_key,p_model:connectedModel});
+   return reply({ok:true,mode:'ai',model:connectedModel});
   }
   if(data.action!=='chat')return reply({error:'Unknown action.'},400);
   if(typeof data.message!=='string'||!data.message.trim()||data.message.length>6000)return reply({error:'Enter a question of up to 6,000 characters.'},400);
