@@ -29,3 +29,5 @@ body.dark{--bg:#101a33;--surface:#182443;--ink:#f2f5ff;--muted:#b9c8e7;--line:#3
 @media print{body{background:#fff}.hero-art,.video-library{display:none}}
 
 .sim-stage{height:auto;min-height:280px}.sim-stage svg{height:auto;max-height:380px}.pill,.bottom-line,.mini-label{font-size:.75rem}.topic-card p,.newton-strip p{font-size:.875rem}.button.small{font-size:.875rem}
+
+nav a.active,nav a.active:hover{background:var(--ink);color:var(--surface)}
