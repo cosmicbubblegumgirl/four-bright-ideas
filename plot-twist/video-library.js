@@ -3,6 +3,9 @@ import {topics} from './data/content.js';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const labels={'explainer':'Explanations','worked-example':'Worked examples','past-paper':'Past papers','revision':'Revision'};
 const pageSize=12;
+const grade12=v=>/grade\s*12|gr\.?\s*12|matric|NSC/i.test(v.title);
+const foundation=v=>/grade\s*(?:9|10|11)\b|gr\.?\s*(?:9|10|11)\b/i.test(v.title)&&!grade12(v);
+const priority=v=>foundation(v)?0:grade12(v)?3:v.scope==='caps'?2:1;
 const states=new WeakMap();
 
 export function videoLibrary({topic='',paper=0,kind=''}={}) {
@@ -13,18 +16,18 @@ export function videoLibrary({topic='',paper=0,kind=''}={}) {
  ${!topic?`<label>Topic<select data-video-filter="topic"><option value="">All topics</option>${topics.filter(t=>!paper||t.paper===paper).map(t=>`<option value="${t.id}">${escape(t.title)}</option>`).join('')}</select></label>`:''}
  <label>Lesson type<select data-video-filter="kind"><option value="">All lesson types</option>${Object.entries(labels).map(([key,label])=>`<option value="${key}" ${key===kind?'selected':''}>${label}</option>`).join('')}</select></label>
  <label>Educator<select data-video-filter="source"><option value="">All educators</option>${[...new Set(list.map(v=>v.source))].sort().map(s=>`<option>${escape(s)}</option>`).join('')}</select></label></div>
- <div class="video-results"></div><p class="caption video-credit">Lessons belong to their credited YouTube educators. South African exam lessons are marked “SA exam support”; other lessons build the same concepts. Follow CAPS notes and official memos for exam requirements. If a player is unavailable, use “Open on YouTube”.</p></section>`;
+ <div class="video-results"></div><p class="caption video-credit">Lessons belong to their credited YouTube educators. Grade 12 lessons appear first. Earlier-grade recaps are marked “Foundation refresher”; other videos support exam or concept practice. Follow CAPS notes and official memos for exam requirements. If a player is unavailable, use “Open on YouTube”.</p></section>`;
 }
 function playButton(v) {
  return `<button class="video-play" data-video-play="${v.id}" aria-label="Play ${escape(v.title)}"><img loading="lazy" src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt=""><span class="play-symbol" aria-hidden="true">▶</span><span class="play-caption">Play lesson${v.duration?' · '+escape(v.duration):''}</span></button>`;
 }
 function card(v) {
- return `<article class="video-card"><div class="video-frame">${playButton(v)}</div><div class="video-copy"><div class="actions"><span class="pill">${labels[v.type]||'Lesson'}</span><span class="pill">${v.scope==='caps'?'SA exam support':'Concept support'}</span></div><h3>${escape(v.title)}</h3><small>${escape(v.source)}</small><a class="link-button" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Open on YouTube</a></div></article>`;
+ return `<article class="video-card"><div class="video-frame">${playButton(v)}</div><div class="video-copy"><div class="actions"><span class="pill">${labels[v.type]||'Lesson'}</span><span class="pill">${foundation(v)?'Foundation refresher':v.scope==='caps'?'SA exam support':'Concept support'}</span></div><h3>${escape(v.title)}</h3><small>${escape(v.source)}</small><a class="link-button" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Open on YouTube</a></div></article>`;
 }
 function renderResults(root,focus=false) {
  let state=states.get(root);
  if(!state){state={page:0,query:'',topic:root.dataset.topic,kind:root.dataset.kind,source:''};states.set(root,state)}
- const list=videos.filter(v=>(!root.dataset.paper||root.dataset.paper==='0'||v.paper===Number(root.dataset.paper))&&(!state.topic||v.topic===state.topic)&&(!state.kind||v.type===state.kind)&&(!state.source||v.source===state.source)&&`${v.title} ${v.source}`.toLowerCase().includes(state.query.toLowerCase().trim()));
+ const list=videos.filter(v=>(!root.dataset.paper||root.dataset.paper==='0'||v.paper===Number(root.dataset.paper))&&(!state.topic||v.topic===state.topic)&&(!state.kind||v.type===state.kind)&&(!state.source||v.source===state.source)&&`${v.title} ${v.source}`.toLowerCase().includes(state.query.toLowerCase().trim())).sort((a,b)=>priority(b)-priority(a));
  const pages=Math.max(1,Math.ceil(list.length/pageSize));state.page=Math.min(state.page,pages-1);
  const start=state.page*pageSize,end=Math.min(start+pageSize,list.length);
  root.querySelector('.video-results').innerHTML=`<p class="video-count" role="status">${list.length?`Showing ${start+1}–${end} of ${list.length} videos`:'No videos match these filters.'}</p>${list.length?`<div class="video-grid">${list.slice(start,end).map(card).join('')}</div>`:`<button class="button secondary" data-video-reset>Clear filters</button>`}<div class="video-pagination" aria-label="Video pages"><button class="button secondary" data-video-page="-1" ${state.page===0?'disabled':''}>Previous videos</button><span>Page ${state.page+1} of ${pages}</span><button class="button secondary" data-video-page="1" ${state.page>=pages-1?'disabled':''}>Next videos</button></div>`;
