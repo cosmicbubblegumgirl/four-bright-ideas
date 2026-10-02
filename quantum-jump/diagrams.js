@@ -14,7 +14,7 @@ const circle = (cx, cy, r, cls = '') => '<circle cx="' + cx + '" cy="' + cy + '"
 const rect = (x, y, w, h, rx = 10, cls = '') => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + rx + '" class="' + cls + '"></rect>';
 
 const symbolSets = {
-  forces: [['ΣF', 'net/resultant force'], ['m', 'mass'], ['a', 'acceleration'], ['F₉', 'weight / gravitational force'], ['N', 'normal force'], ['f', 'frictional force']],
+  forces: [['ΣF', 'net/resultant force'], ['m', 'mass'], ['a', 'acceleration'], ['w / F_g', 'weight / gravitational force'], ['N', 'normal force'], ['f', 'frictional force']],
   gravity: [['F', 'gravitational force'], ['G', 'universal gravitational constant'], ['m₁, m₂', 'interacting masses'], ['r', 'centre-to-centre distance'], ['g', 'gravitational field strength']],
   momentum: [['p', 'momentum'], ['m', 'mass'], ['vᵢ', 'initial velocity'], ['v_f', 'final velocity'], ['Δp', 'change in momentum'], ['J', 'impulse'], ['F_net', 'net force'], ['Δt', 'time interval']],
   projectiles: [['vᵢ', 'initial velocity'], ['v_f', 'final velocity'], ['a', 'acceleration'], ['g', 'gravitational acceleration'], ['Δy', 'vertical displacement'], ['Δt', 'time interval']],
@@ -39,7 +39,7 @@ const symbolSets = {
 export function symbolKey(topic) {
   const items = symbolSets[topic.id] || [];
   if (!items.length) return '';
-  return '<section class="symbol-key" aria-label="Symbol key"><h3>Symbol key</h3><div class="symbol-key-grid">' +
+  return '<section class="symbol-key" aria-label="Symbol key"><h3>Symbol key for this question</h3><div class="symbol-key-grid">' +
     items.map((item) => '<div class="symbol-key-item"><span class="diagram-symbol">' + esc(item[0]) + '</span><span>' + esc(item[1]) + '</span></div>').join('') +
     '</div></section>';
 }
@@ -61,7 +61,7 @@ function baseFigure(topic, example, body, caption) {
 function forcesDiagram() {
   let b = rect(285, 142, 150, 80, 12, 'diagram-object') + line(90, 223, 665, 223, 'class="diagram-ground"');
   b += arrow(360, 140, 360, 72) + txt(374, 84, 'N', 'diagram-label');
-  b += arrow(360, 224, 360, 292) + txt(374, 286, 'F₉', 'diagram-label');
+  b += arrow(360, 224, 360, 292) + txt(374, 286, 'w (F_g)', 'diagram-label');
   b += arrow(435, 182, 575, 182) + txt(520, 165, 'applied / resultant', 'diagram-label');
   b += arrow(285, 198, 170, 198) + txt(178, 183, 'friction if present', 'diagram-label');
   b += txt(325, 188, 'object', 'diagram-object-label');
