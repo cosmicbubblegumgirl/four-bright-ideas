@@ -18,3 +18,62 @@
 @media(max-width:1150px){.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.theme-toggle span{display:none}.theme-toggle{font-size:1rem;padding:7px 10px}.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.video-grid{grid-template-columns:1fr}.video-copy{padding:16px}}
+
+
+/* Worked-practice diagrams and symbol keys */
+.question-visual{margin:22px 0 20px;padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.question-diagram{display:block;width:100%;height:auto;max-height:390px;min-height:230px;background:var(--surface);border:1px solid var(--line);border-radius:11px;overflow:visible}
+.question-visual figcaption{margin:11px 2px 0;font-size:.78rem;line-height:1.55;color:var(--muted)}
+.diagram-givens{margin-top:10px;padding:11px 13px;border-radius:9px;background:var(--surface);border:1px solid var(--line);font-size:.78rem;line-height:1.6;overflow-wrap:anywhere}
+.question-diagram text{font-family:'DM Sans',system-ui,sans-serif;fill:var(--ink)}
+.diagram-heading{font-size:15px;font-weight:750;letter-spacing:.05em}
+.diagram-subheading{font-size:14px;font-weight:700;letter-spacing:.08em}
+.diagram-label{font-size:14px;font-weight:600}
+.diagram-note{font-size:13px;fill:var(--muted)!important}
+.diagram-object-label{font-size:16px;font-weight:750;text-anchor:middle}
+.diagram-arrow,.diagram-measure,.diagram-axis,.diagram-wire,.diagram-path,.diagram-wave,.diagram-profile,.diagram-coil,.diagram-bond,.diagram-imf,.diagram-glass-line{fill:none;stroke:var(--ink);stroke-width:2.2;vector-effect:non-scaling-stroke}
+.diagram-arrow-head{fill:var(--ink)}
+.diagram-ground{stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-measure{stroke-dasharray:6 5}
+.diagram-axis{stroke-width:1.4}
+.diagram-path{stroke-dasharray:7 5}
+.diagram-wave{stroke-width:1.8}
+.diagram-wave.strong{stroke-width:3}
+.diagram-profile{stroke-width:3}
+.diagram-object,.diagram-molecule,.diagram-atom,.diagram-ion,.diagram-person{fill:var(--mint);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-person{fill:var(--lilac)}
+.diagram-graph-fill{fill:var(--mint);stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.diagram-resistor,.diagram-callout,.diagram-supply{fill:var(--peach);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-magnet{fill:var(--lilac);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-metal{fill:var(--muted);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-glass{fill:var(--surface);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-drop{fill:var(--accent);stroke:none}
+.diagram-flask,.diagram-beaker,.diagram-cell-beaker{fill:var(--mint);fill-opacity:.45;stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-electrode,.diagram-cell{stroke:var(--ink);stroke-width:4;vector-effect:non-scaling-stroke}
+.diagram-cell.thick{stroke-width:7}
+.diagram-saltbridge{fill:none;stroke:var(--muted);stroke-width:9;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.diagram-imf{stroke-dasharray:5 6}
+.diagram-symbol{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:750;white-space:nowrap}
+.symbol-key{margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.symbol-key h3{font-size:.88rem;margin:0 0 12px}
+.symbol-key-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}
+.symbol-key-item{display:grid;grid-template-columns:minmax(66px,max-content) 1fr;gap:10px;align-items:start;padding:7px 0;border-bottom:1px solid var(--line);font-size:.78rem;line-height:1.45;min-width:0}
+.symbol-key-item span:last-child{overflow-wrap:anywhere}
+
+@media(max-width:800px){
+  .question-visual{padding:12px}
+  .question-diagram{min-height:210px;max-height:none}
+  .symbol-key-grid{grid-template-columns:1fr}
+}
+@media(max-width:540px){
+  .question-visual{margin:18px 0;padding:9px;border-radius:11px}
+  .question-diagram{min-height:190px;border-radius:8px}
+  .question-visual figcaption,.diagram-givens{font-size:.73rem}
+  .symbol-key{padding:13px;margin:14px 0}
+  .symbol-key-item{grid-template-columns:minmax(58px,max-content) 1fr;font-size:.74rem;gap:8px}
+}
+@media print{
+  .question-visual,.symbol-key{break-inside:avoid;background:white;border:1px solid #bbb}
+  .question-diagram{max-height:300px;background:white}
+  .question-diagram text{fill:#000}
+}
