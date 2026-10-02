@@ -178,3 +178,58 @@ body.layout-desktop .quiet-button{display:inline-flex}
   body:not(.layout-desktop) .layout-switch button{padding:6px 7px;font-size:.58rem}
   body:not(.layout-desktop) .top-actions .button.small{padding:8px 9px;font-size:.7rem}
 }
+
+
+/* Explicit view modes */
+.layout-toggle{min-width:118px}
+
+body.layout-mobile .shell{margin-left:0}
+body.layout-mobile .sidebar{transform:translateX(-100%);width:245px}
+body.layout-mobile .sidebar.open{transform:translateX(0);box-shadow:0 0 0 100vmax #132a2840}
+body.layout-mobile .mobile-menu{display:block}
+body.layout-mobile .breadcrumb{display:none}
+body.layout-mobile main{max-width:780px;padding:26px 20px 48px}
+body.layout-mobile .hero{display:block}
+body.layout-mobile .hero-art{display:none}
+body.layout-mobile .overview-grid,
+body.layout-mobile .topic-grid,
+body.layout-mobile .two-cols,
+body.layout-mobile .three-cols,
+body.layout-mobile .video-grid,
+body.layout-mobile .sim-controls{grid-template-columns:1fr}
+body.layout-mobile .daily-card{grid-column:auto;display:block}
+body.layout-mobile .paper-row{grid-template-columns:1fr;padding:18px}
+body.layout-mobile .paper-row .actions{grid-column:auto;justify-content:flex-start}
+body.layout-mobile .toolbar,
+body.layout-mobile .answer-box,
+body.layout-mobile .chat-form{flex-wrap:wrap}
+body.layout-mobile .toolbar select,
+body.layout-mobile .answer-box input,
+body.layout-mobile .chat-form button{width:100%;max-width:none}
+body.layout-mobile .numbers{grid-template-columns:repeat(5,minmax(0,1fr))}
+body.layout-mobile .question-visual{padding:10px}
+body.layout-mobile .question-diagram{min-height:190px;max-height:none}
+body.layout-mobile .symbol-key-grid{grid-template-columns:1fr}
+body.layout-mobile .button{min-height:44px}
+body.layout-mobile .top-actions{gap:6px}
+body.layout-mobile .top-actions .theme-toggle span{display:none}
+body.layout-mobile .layout-toggle{min-width:42px}
+
+@media(min-width:801px){
+  body.layout-desktop .sidebar{width:246px;transform:none}
+  body.layout-desktop .shell{margin-left:246px}
+  body.layout-desktop .mobile-menu{display:none}
+  body.layout-desktop .breadcrumb{display:block}
+  body.layout-desktop main{max-width:1500px;padding:38px 48px 60px}
+  body.layout-desktop .two-cols{grid-template-columns:minmax(0,1.7fr) minmax(290px,1fr)}
+  body.layout-desktop .three-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.layout-desktop .topic-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.layout-desktop .video-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.layout-desktop .question-diagram{max-height:420px}
+  body.layout-desktop .symbol-key-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:800px){
+  .layout-toggle{min-width:auto}
+  .layout-toggle span{display:none}
+}
