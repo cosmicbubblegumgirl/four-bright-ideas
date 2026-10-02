@@ -111,3 +111,70 @@
 @media(max-width:700px){.question-visual{padding:12px;margin:16px 0 18px}.question-diagram{min-height:210px}.symbol-key-grid{grid-template-columns:1fr}.symbol-key-item{grid-template-columns:82px 1fr}}
 @media(max-width:420px){.question-diagram{min-height:190px}.diagram-label{font-size:12px}.diagram-note{font-size:11px}.diagram-heading{font-size:13px}.symbol-key{padding:14px}.symbol-key-item{grid-template-columns:72px 1fr;font-size:.76rem}}
 @media print{.question-visual,.symbol-key{break-inside:avoid}.question-diagram{max-height:300px}}
+
+
+/* Explicit layout preview modes */
+.layout-switch{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px;gap:2px;white-space:nowrap}
+.layout-switch button{background:transparent;color:var(--muted);border-radius:999px;padding:6px 9px;font-size:.66rem;font-weight:700;line-height:1.2}
+.layout-switch button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.layout-switch button:focus-visible{outline-offset:2px}
+
+/* Mobile view can be previewed from any screen size. */
+body.layout-mobile{background:#e8e9e3}
+body.layout-mobile .sidebar{transform:translateX(-100%);width:245px}
+body.layout-mobile .sidebar.open{transform:translateX(0);box-shadow:0 0 0 100vmax #132a2840}
+body.layout-mobile .shell{margin:0 auto;max-width:430px;min-height:100dvh;background:var(--bg);box-shadow:0 0 0 1px var(--line),0 18px 60px #25332e1c}
+body.layout-mobile .mobile-menu{display:block;background:none;font-size:22px;z-index:31}
+body.layout-mobile .topbar{height:70px;padding-inline:14px;gap:8px}
+body.layout-mobile .breadcrumb{display:none}
+body.layout-mobile .top-actions{gap:5px;min-width:0}
+body.layout-mobile .layout-switch button{padding:6px 7px;font-size:.6rem}
+body.layout-mobile .theme-toggle span{display:none}
+body.layout-mobile .quiet-button{display:none}
+body.layout-mobile main{padding:24px 16px 42px;min-width:0}
+body.layout-mobile .hero{display:block;padding:10px 0 25px}
+body.layout-mobile .hero-art{display:none}
+body.layout-mobile .overview-grid,
+body.layout-mobile .topic-grid,
+body.layout-mobile .two-cols,
+body.layout-mobile .three-cols,
+body.layout-mobile .video-grid,
+body.layout-mobile .sim-controls{grid-template-columns:1fr}
+body.layout-mobile .daily-card{grid-column:auto;display:block}
+body.layout-mobile .paper-row{grid-template-columns:52px 1fr;padding:16px;gap:10px}
+body.layout-mobile .paper-row .actions{grid-column:2;justify-content:flex-start}
+body.layout-mobile .numbers{grid-template-columns:repeat(5,1fr)}
+body.layout-mobile .page-head{display:block}
+body.layout-mobile .page-head .actions{margin-top:14px}
+body.layout-mobile .toolbar{flex-wrap:wrap}
+body.layout-mobile .toolbar select{flex:1}
+body.layout-mobile .inline-fields{grid-template-columns:1fr}
+body.layout-mobile .answer-box,
+body.layout-mobile .chat-form{flex-wrap:wrap}
+body.layout-mobile .chat-form button{width:100%}
+body.layout-mobile footer{flex-direction:column;padding:20px 16px}
+body.layout-mobile footer a{text-align:left;display:inline-block;margin-right:8px}
+body.layout-mobile .question-visual{padding:12px}
+body.layout-mobile .symbol-key-grid{grid-template-columns:1fr}
+
+/* Desktop view intentionally preserves the full studio layout, even on a narrow device. */
+body.layout-desktop{min-width:1120px}
+body.layout-desktop .sidebar{transform:none;width:246px}
+body.layout-desktop .shell{margin-left:246px;max-width:none}
+body.layout-desktop .mobile-menu{display:none}
+body.layout-desktop .breadcrumb{display:block}
+body.layout-desktop .topbar{height:86px;padding:0 36px}
+body.layout-desktop main{padding:34px 40px 55px}
+body.layout-desktop .overview-grid{grid-template-columns:1fr 1fr .92fr}
+body.layout-desktop .topic-grid{grid-template-columns:repeat(3,1fr)}
+body.layout-desktop .two-cols{grid-template-columns:1.7fr 1fr}
+body.layout-desktop .three-cols{grid-template-columns:repeat(3,1fr)}
+body.layout-desktop .video-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+body.layout-desktop .numbers{grid-template-columns:repeat(10,1fr)}
+body.layout-desktop .theme-toggle span{display:inline}
+body.layout-desktop .quiet-button{display:inline-flex}
+
+@media(max-width:680px){
+  body:not(.layout-desktop) .layout-switch button{padding:6px 7px;font-size:.58rem}
+  body:not(.layout-desktop) .top-actions .button.small{padding:8px 9px;font-size:.7rem}
+}
