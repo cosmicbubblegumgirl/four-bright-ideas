@@ -233,3 +233,14 @@ body.layout-mobile .layout-toggle{min-width:42px}
   .layout-toggle{min-width:auto}
   .layout-toggle span{display:none}
 }
+
+
+/* Narrow header collision guard */
+@media(max-width:540px){
+  body:not(.layout-desktop) .topbar{height:auto;min-height:70px;align-items:flex-start;padding-top:9px;padding-bottom:9px}
+  body:not(.layout-desktop) .top-actions{flex-wrap:wrap;justify-content:flex-end;min-width:0}
+  body:not(.layout-desktop) .layout-switch{order:3}
+  body:not(.layout-desktop) .quiet-button{display:none}
+}
+body.layout-mobile .top-actions{flex-wrap:wrap;justify-content:flex-end}
+body.layout-mobile .topbar{height:auto;min-height:70px;padding-top:9px;padding-bottom:9px}
