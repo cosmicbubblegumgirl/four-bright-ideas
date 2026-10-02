@@ -77,3 +77,37 @@
   .question-diagram{max-height:300px;background:white}
   .question-diagram text{fill:#000}
 }
+
+
+/* Worked question diagrams and symbol keys */
+.question-visual{margin:20px 0 22px;padding:18px;background:var(--bg);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.question-diagram{display:block;width:100%;height:auto;min-height:240px;max-height:380px;overflow:visible}
+.question-diagram text{font-family:'DM Sans',system-ui,sans-serif;fill:var(--ink)}
+.diagram-heading{font-size:16px;font-weight:750;letter-spacing:.045em}
+.diagram-subheading{font-size:14px;font-weight:700;letter-spacing:.08em}
+.diagram-label{font-size:14px;font-weight:600}
+.diagram-note{font-size:13px;fill:var(--muted)!important}
+.diagram-object-label{font-size:15px;font-weight:750;text-anchor:middle}
+.diagram-symbol{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-weight:700;white-space:nowrap}
+.diagram-object,.diagram-molecule,.diagram-callout,.diagram-resistor,.diagram-magnet,.diagram-supply,.diagram-ion,.diagram-atom{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+.diagram-person{fill:var(--mint);stroke:var(--ink);stroke-width:2}
+.diagram-graph-fill{fill:var(--peach);stroke:var(--accent);stroke-width:2}
+.diagram-metal{fill:var(--line);stroke:var(--ink);stroke-width:2}
+.diagram-glass,.diagram-beaker,.diagram-flask,.diagram-cell-beaker{fill:none;stroke:var(--ink);stroke-width:2}
+.diagram-ground,.diagram-axis,.diagram-measure,.diagram-bond,.diagram-wire,.diagram-cell,.diagram-glass-line,.diagram-electrode,.diagram-coil{fill:none;stroke:var(--ink);stroke-width:2}
+.diagram-cell.thick{stroke-width:4}
+.diagram-arrow,.diagram-path,.diagram-wave,.diagram-profile{fill:none;stroke:var(--accent);stroke-width:2.5}
+.diagram-wave.strong{stroke-width:3}
+.diagram-arrow-head{fill:var(--accent)}
+.diagram-imf,.diagram-saltbridge{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:7 7}
+.diagram-drop{fill:var(--accent);stroke:none}
+.question-visual figcaption{font-size:.78rem;color:var(--muted);line-height:1.55;margin:10px 2px 0}
+.diagram-givens{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:.78rem;line-height:1.55;overflow-wrap:anywhere}
+.symbol-key{margin:18px 0 22px;padding:17px 18px;background:var(--mint);border:1px solid var(--line);border-radius:12px}
+.symbol-key h3{font-size:.92rem;margin:0 0 12px}
+.symbol-key-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}
+.symbol-key-item{display:grid;grid-template-columns:minmax(70px,auto) 1fr;gap:10px;align-items:start;font-size:.8rem;line-height:1.45;min-width:0}
+.symbol-key-item span:last-child{overflow-wrap:anywhere}
+@media(max-width:700px){.question-visual{padding:12px;margin:16px 0 18px}.question-diagram{min-height:210px}.symbol-key-grid{grid-template-columns:1fr}.symbol-key-item{grid-template-columns:82px 1fr}}
+@media(max-width:420px){.question-diagram{min-height:190px}.diagram-label{font-size:12px}.diagram-note{font-size:11px}.diagram-heading{font-size:13px}.symbol-key{padding:14px}.symbol-key-item{grid-template-columns:72px 1fr;font-size:.76rem}}
+@media print{.question-visual,.symbol-key{break-inside:avoid}.question-diagram{max-height:300px}}
