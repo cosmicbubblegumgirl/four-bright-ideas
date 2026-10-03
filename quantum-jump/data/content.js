@@ -30,26 +30,26 @@ const qualitative=(q,k,find,principle,rule,reason,answer,why)=>out(q,k,find,prin
 
 
 const EXAM_CONTEXTS={
-forces:['a mechanics investigation with a trolley on a rough surface','a crate moved across a workshop floor','two connected dynamics trolleys','a lift carrying a passenger','a block on an inclined plane'],
-gravity:['a weather satellite above Earth','two astronomical bodies separated in space','an instrument on another planet','a comparison of surface gravitational fields','a satellite moved to a different altitude'],
-momentum:['a cricket-ball collision','two trolleys colliding on a track','a recoil or separation event','a force–time investigation','a vehicle safety impact'],
-projectiles:['a ball projected from a building','an object released from a moving balloon','a ball that bounces after hitting the ground','a vertical launch recorded with a motion sensor','a free-fall investigation'],
-energy:['a trolley pulled across a rough surface','a motor lifting a load','a braking vehicle','a block moving on a track with friction','a power comparison'],
-doppler:['an approaching emergency vehicle','a receding sound source','a moving listener and stationary source','a stellar spectral shift','a sound-wave measurement'],
-electrostatics:['three collinear point charges','a test charge in an electric field','two point charges with changed separation','a midpoint field comparison','a charged particle in a uniform field'],
-circuits:['a mixed series-parallel circuit','a real cell with internal resistance','a bulb-and-switch circuit','a resistor power measurement','a terminal-potential-difference investigation'],
-machines:['a rotating coil in a magnetic field','a generator supplying a load','a DC motor with a split-ring commutator','a changing-flux investigation','a motor efficiency measurement'],
-ac:['a sinusoidal voltage trace','an AC heater circuit','a current-versus-time graph','an rms/peak comparison','an AC generator output'],
-photoelectric:['light incident on a metal surface','a threshold-frequency investigation','a kinetic-energy-versus-frequency graph','a wavelength comparison','an intensity-and-frequency experiment'],
-'organic-names':['a table of labelled organic compounds','a condensed structural formula','a structural-isomer comparison','an unknown functional group','a molecular-formula classification'],
-'organic-properties':['a boiling-point comparison','a vapour-pressure data table','a branched-versus-straight-chain comparison','an intermolecular-force explanation','a pressure-and-boiling investigation'],
-'organic-reactions':['an organic reaction pathway','an alkene addition reaction','an alcohol elimination reaction','an esterification setup','an addition-polymerisation example'],
-rates:['a concentration-versus-time investigation','an energy-profile diagram','a temperature-rate comparison','a catalyst investigation','a gas-volume rate experiment'],
-equilibrium:['a sealed equilibrium vessel','a Kc concentration table','a Le Chatelier pressure change','a temperature-and-Kc data table','a solubility equilibrium'],
-acids:['an acid-base laboratory sample','a pH measurement','a conjugate acid-base pair','an ampholyte classification','a strong-versus-weak acid comparison'],
-titrations:['a burette-and-flask titration','a non-1:1 neutralisation','a solution-preparation calculation','an equivalence-point investigation','a concentration determination'],
-galvanic:['a two-half-cell galvanic cell','a standard-reduction-potential table','a salt-bridge investigation','an electrode-mass observation','a cell-notation task'],
-electrolysis:['an electroplating cell','a molten-salt electrolytic cell','a copper-refining cell','a charge-transfer calculation','an electrode-product prediction']
+forces:['a horizontal trolley-and-friction investigation','a kinetic-friction investigation on a horizontal surface','a parcel accelerating inside a lift','a block on an inclined plane'],
+gravity:['two separated masses attracting each other','a satellite above Earth’s surface','an inverse-square force comparison','an instrument weighed on a moon'],
+momentum:['a trolley that rebounds after a collision','an object brought to rest over a measured contact time','two trolleys that collide and stick together','a constant-force impulse interval'],
+projectiles:['a vertical launch timed to maximum height','a vertical launch used to determine maximum height','an object dropped from rest','a vertical launch analysed after a stated time'],
+energy:['a trolley pulled at an angle through a displacement','a trolley whose speed changes','a motor lifting a load at constant speed','an object descending a frictionless track'],
+doppler:['an approaching sound source','a receding sound source','a listener moving toward a stationary source','a stationary source with known frequency'],
+electrostatics:['two point charges separated by a measured distance','the electric field around a positive point charge','a charged particle in a uniform electric field','an inverse-square electrostatic-force comparison'],
+circuits:['an ohmic resistor with measured potential difference','a real cell with internal resistance','two resistors connected in parallel','a resistor connected to an ideal supply'],
+machines:['a changing-flux coil','a coil in a uniform magnetic field','a motor-efficiency measurement','a generator supplying a resistive load'],
+ac:['a sinusoidal source with known peak voltage','a sinusoidal current with known rms value','a resistor connected to an rms AC supply','a sinusoidal supply with known frequency'],
+photoelectric:['a photon-frequency calculation','light incident on a metal of known work function','a threshold-frequency calculation','light specified by wavelength'],
+'organic-names':['an organic-structure classification task','an IUPAC naming task','a functional-group identification task','a structural-isomer task'],
+'organic-properties':['an intermolecular-force comparison','a boiling-point explanation','a vapour-pressure interpretation','a molecular-structure comparison'],
+'organic-reactions':['an organic-reaction pathway','a reagent-and-condition question','a product-prediction question','a polymer or combustion application'],
+rates:['a concentration-rate calculation','an enthalpy change from an energy profile','an activation-energy calculation','a gas-production rate experiment'],
+equilibrium:['a Kc calculation for H₂/I₂/HI','a Kc calculation for N₂O₄/NO₂','a stoichiometric equilibrium-change calculation','an equilibrium concentration change'],
+acids:['a pH calculation from hydronium concentration','a hydronium concentration calculated from pH','an ion-product-of-water calculation','a strong-base pH calculation'],
+titrations:['an HCl–NaOH neutralisation','an H₂SO₄–NaOH neutralisation','a mole calculation from solution concentration','a solution prepared from a measured solute mass'],
+galvanic:['a standard-cell-potential calculation','an oxidation-electrode identification','an external electron-flow question','a charge-transfer calculation'],
+electrolysis:['a cathode half-reaction task','an anode half-reaction task','an electrolytic-cell electrode-sign question','a charge-passed calculation']
 };
 const EXAM_SKILLS={
 forces:'free-body reasoning, components, friction and Newton’s laws',
@@ -73,15 +73,23 @@ titrations:'moles, balanced ratios, concentration and equivalence',
 galvanic:'electrodes, electron flow, cell potential and notation',
 electrolysis:'electrode reactions, products, charge and cell setup'
 };
+
+const EXAM_MARKS={
+forces:[4,3,3,3],gravity:[4,4,3,3],momentum:[3,4,5,3],projectiles:[3,3,3,3],energy:[3,4,4,4],
+doppler:[4,4,4,3],electrostatics:[4,4,3,3],circuits:[3,4,4,3],machines:[4,3,3,3],ac:[3,3,4,2],
+photoelectric:[3,4,4,4],'organic-names':[2,3,2,3],'organic-properties':[3,2,3,3],'organic-reactions':[3,3,3,3],
+rates:[3,3,3,3],equilibrium:[4,4,5,5],acids:[3,3,4,4],titrations:[5,6,3,5],galvanic:[4,2,3,3],electrolysis:[2,2,4,3]
+};
 function examify(topic,e,i){
  const numeric=e.number!==null;
- const difficulty=i<25?'Exam warm-up':i<75?'Exam standard':'Exam challenge';
- const marks=numeric?(i<25?3:i<75?4:5):(i<25?2:i<75?3:4);
+ const mode=i%4;
+ const difficulty=i<25?'Exam core':i<75?'Exam application':'Exam stretch';
+ const marks=(EXAM_MARKS[topic.id]||[numeric?3:2,numeric?3:2,numeric?3:2,numeric?3:2])[mode];
  const contexts=EXAM_CONTEXTS[topic.id]||['a Grade 12 Physical Sciences examination context'];
- const context=contexts[i%contexts.length];
+ const context=contexts[mode%contexts.length];
  const levelNote=i>=75?'Select the relevant information, justify your method and show all formulae and substitutions.':i>=25?'Show the formula used, the substitution and the final answer with a unit where applicable.':'Work from the stated information and use the appropriate Grade 12 relationship.';
  const directionNote=['forces','momentum','projectiles','electrostatics','doppler'].includes(topic.id)?' Include direction or sign where it is physically meaningful.':'';
- const question='In '+context+', '+e.question.charAt(0).toLowerCase()+e.question.slice(1)+' '+levelNote+directionNote;
+ const question='Exam context: '+context+'. '+e.question+' '+levelNote+directionNote;
  return {...e,question,marks,difficulty,examSkill:EXAM_SKILLS[topic.id]||'Grade 12 application',diagramHint:context+'; use the numerical values stated in this exact question',originalExamStyle:true};
 }
 
