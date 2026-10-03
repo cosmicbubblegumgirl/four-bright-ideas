@@ -244,3 +244,8 @@ body.layout-mobile .layout-toggle{min-width:42px}
 }
 body.layout-mobile .top-actions{flex-wrap:wrap;justify-content:flex-end}
 body.layout-mobile .topbar{height:auto;min-height:70px;padding-top:9px;padding-bottom:9px}
+
+
+.exam-skill{margin:-4px 0 16px;padding:10px 13px;border-radius:10px;background:var(--mint);font-size:.78rem;line-height:1.5;color:var(--muted)}
+.exam-skill strong{color:var(--ink)}
+@media(max-width:540px){.example-top{align-items:flex-start;flex-wrap:wrap}.example-top .actions{width:100%}.exam-skill{font-size:.74rem;margin-bottom:13px}}
