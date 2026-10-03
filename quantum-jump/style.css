@@ -249,3 +249,24 @@ body.layout-mobile .topbar{height:auto;min-height:70px;padding-top:9px;padding-b
 .exam-skill{margin:-4px 0 16px;padding:10px 13px;border-radius:10px;background:var(--mint);font-size:.78rem;line-height:1.5;color:var(--muted)}
 .exam-skill strong{color:var(--ink)}
 @media(max-width:540px){.example-top{align-items:flex-start;flex-wrap:wrap}.example-top .actions{width:100%}.exam-skill{font-size:.74rem;margin-bottom:13px}}
+
+
+/* Question-specific diagram families */
+.diagram-data-panel{fill:var(--surface);stroke:var(--line);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.diagram-data-title{font-size:10px;font-weight:800;letter-spacing:.08em;fill:var(--muted)!important}
+.diagram-data-text{font-size:11px;font-weight:650}
+.diagram-lift,.diagram-ramp,.diagram-earth,.diagram-moon,.diagram-load,.diagram-pulley,.diagram-point,.diagram-fieldplate,.diagram-motor,.diagram-generator,.diagram-liquid,.diagram-vessel,.diagram-balance,.diagram-volumetric,.diagram-display{fill:var(--surface);stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-earth,.diagram-moon,.diagram-liquid,.diagram-vessel{fill:var(--mint)}
+.diagram-ramp,.diagram-fieldplate,.diagram-balance,.diagram-display{fill:var(--peach)}
+.diagram-load,.diagram-motor,.diagram-generator,.diagram-volumetric{fill:var(--lilac)}
+.diagram-pulley,.diagram-point{fill:var(--surface)}
+.diagram-rope,.diagram-track,.diagram-normal,.diagram-chain,.diagram-fieldplate,.diagram-formula-line{fill:none;stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
+.diagram-track{stroke-width:3}
+.diagram-normal{stroke-dasharray:6 5}
+.diagram-formula{font-size:17px;font-weight:750}
+.diagram-bond.double{stroke-width:5}
+@media(max-width:540px){
+  .diagram-data-title{font-size:9px}
+  .diagram-data-text{font-size:10px}
+  .diagram-formula{font-size:14px}
+}
