@@ -53,7 +53,7 @@ function baseFigure(topic, example, body, caption) {
     txt(28, 34, 'QUESTION ' + number + ' · ' + topic.title.toUpperCase(), 'diagram-heading') +
     body +
     '</svg>' +
-    '<figcaption>' + esc(caption) + '</figcaption>' +
+    '<figcaption>' + esc(caption + (example.diagramHint ? ' Question-specific setup: ' + example.diagramHint + '.' : '')) + '</figcaption>' +
     '<div class="diagram-givens"><strong>Given:</strong> ' + esc(example.known) + '</div>' +
     '</figure>';
 }
