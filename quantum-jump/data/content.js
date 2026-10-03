@@ -28,6 +28,63 @@ const out=(question,known,find,principle,formula,substitution,answer,unit,explai
 const calc=(q,k,u,p,formula,sub,n,unit,why)=>out(q,k,u,p,formula,sub,sci(n),unit,why,n);
 const qualitative=(q,k,find,principle,rule,reason,answer,why)=>out(q,k,find,principle,rule,reason,answer,'',why);
 
+
+const EXAM_CONTEXTS={
+forces:['a mechanics investigation with a trolley on a rough surface','a crate moved across a workshop floor','two connected dynamics trolleys','a lift carrying a passenger','a block on an inclined plane'],
+gravity:['a weather satellite above Earth','two astronomical bodies separated in space','an instrument on another planet','a comparison of surface gravitational fields','a satellite moved to a different altitude'],
+momentum:['a cricket-ball collision','two trolleys colliding on a track','a recoil or separation event','a force–time investigation','a vehicle safety impact'],
+projectiles:['a ball projected from a building','an object released from a moving balloon','a ball that bounces after hitting the ground','a vertical launch recorded with a motion sensor','a free-fall investigation'],
+energy:['a trolley pulled across a rough surface','a motor lifting a load','a braking vehicle','a block moving on a track with friction','a power comparison'],
+doppler:['an approaching emergency vehicle','a receding sound source','a moving listener and stationary source','a stellar spectral shift','a sound-wave measurement'],
+electrostatics:['three collinear point charges','a test charge in an electric field','two point charges with changed separation','a midpoint field comparison','a charged particle in a uniform field'],
+circuits:['a mixed series-parallel circuit','a real cell with internal resistance','a bulb-and-switch circuit','a resistor power measurement','a terminal-potential-difference investigation'],
+machines:['a rotating coil in a magnetic field','a generator supplying a load','a DC motor with a split-ring commutator','a changing-flux investigation','a motor efficiency measurement'],
+ac:['a sinusoidal voltage trace','an AC heater circuit','a current-versus-time graph','an rms/peak comparison','an AC generator output'],
+photoelectric:['light incident on a metal surface','a threshold-frequency investigation','a kinetic-energy-versus-frequency graph','a wavelength comparison','an intensity-and-frequency experiment'],
+'organic-names':['a table of labelled organic compounds','a condensed structural formula','a structural-isomer comparison','an unknown functional group','a molecular-formula classification'],
+'organic-properties':['a boiling-point comparison','a vapour-pressure data table','a branched-versus-straight-chain comparison','an intermolecular-force explanation','a pressure-and-boiling investigation'],
+'organic-reactions':['an organic reaction pathway','an alkene addition reaction','an alcohol elimination reaction','an esterification setup','an addition-polymerisation example'],
+rates:['a concentration-versus-time investigation','an energy-profile diagram','a temperature-rate comparison','a catalyst investigation','a gas-volume rate experiment'],
+equilibrium:['a sealed equilibrium vessel','a Kc concentration table','a Le Chatelier pressure change','a temperature-and-Kc data table','a solubility equilibrium'],
+acids:['an acid-base laboratory sample','a pH measurement','a conjugate acid-base pair','an ampholyte classification','a strong-versus-weak acid comparison'],
+titrations:['a burette-and-flask titration','a non-1:1 neutralisation','a solution-preparation calculation','an equivalence-point investigation','a concentration determination'],
+galvanic:['a two-half-cell galvanic cell','a standard-reduction-potential table','a salt-bridge investigation','an electrode-mass observation','a cell-notation task'],
+electrolysis:['an electroplating cell','a molten-salt electrolytic cell','a copper-refining cell','a charge-transfer calculation','an electrode-product prediction']
+};
+const EXAM_SKILLS={
+forces:'free-body reasoning, components, friction and Newton’s laws',
+gravity:'universal gravitation and inverse-square reasoning',
+momentum:'signed momentum, impulse and conservation',
+projectiles:'vertical sign convention, equations of motion and graph interpretation',
+energy:'work-energy reasoning, power and non-conservative forces',
+doppler:'relative motion, sign choice and frequency/wavelength interpretation',
+electrostatics:'Coulomb-law vectors and electric-field reasoning',
+circuits:'series/parallel reduction, internal resistance and power',
+machines:'magnetic flux, induced emf and motor/generator principles',
+ac:'peak/rms interpretation, period and resistor power',
+photoelectric:'photon energy, threshold behaviour and graph interpretation',
+'organic-names':'IUPAC naming, functional groups and structural isomerism',
+'organic-properties':'intermolecular forces, boiling point and vapour pressure',
+'organic-reactions':'reaction type, reagent/condition choice and organic products',
+rates:'collision theory, reaction-rate data and energy profiles',
+equilibrium:'Kc, change tables and Le Chatelier reasoning',
+acids:'Brønsted–Lowry reasoning, pH and ion concentrations',
+titrations:'moles, balanced ratios, concentration and equivalence',
+galvanic:'electrodes, electron flow, cell potential and notation',
+electrolysis:'electrode reactions, products, charge and cell setup'
+};
+function examify(topic,e,i){
+ const numeric=e.number!==null;
+ const difficulty=i<25?'Exam warm-up':i<75?'Exam standard':'Exam challenge';
+ const marks=numeric?(i<25?3:i<75?4:5):(i<25?2:i<75?3:4);
+ const contexts=EXAM_CONTEXTS[topic.id]||['a Grade 12 Physical Sciences examination context'];
+ const context=contexts[i%contexts.length];
+ const levelNote=i>=75?'Select the relevant information, justify your method and show all formulae and substitutions.':i>=25?'Show the formula used, the substitution and the final answer with a unit where applicable.':'Work from the stated information and use the appropriate Grade 12 relationship.';
+ const directionNote=['forces','momentum','projectiles','electrostatics','doppler'].includes(topic.id)?' Include direction or sign where it is physically meaningful.':'';
+ const question='In '+context+', '+e.question.charAt(0).toLowerCase()+e.question.slice(1)+' '+levelNote+directionNote;
+ return {...e,question,marks,difficulty,examSkill:EXAM_SKILLS[topic.id]||'Grade 12 application',diagramHint:context+'; use the numerical values stated in this exact question',originalExamStyle:true};
+}
+
 export function example(id,index=0){
 const topic=topics.find(t=>t.id===id)||topics[0];const i=((index%100)+100)%100;const mode=i%4;const n=Math.floor(i/4)+1;const a=2+n,b=3+(n%7),g=9.8;let e;
 switch(topic.id){
@@ -67,7 +124,7 @@ const qs=[['Suggest a suitable reaction and its conditions.',route],['Would it u
 e=qualitative(`For ${c[0]}: ${qs[0]}`,`Homologous series: ${c[1]}; feature: ${c[3]}`,'reaction reasoning','Use the functional group to identify chemically possible transformations.','Track bonds, atoms, reagents and reaction conditions.',route,qs[1],'Do not assume every organic compound undergoes the same reaction.');
 }break;}
 }
-return {...e,id:`${topic.id}-${i+1}`,topic:topic.id,paper:topic.paper,index:i,difficulty:i<32?'Foundation':i<72?'Practice':'Consolidation',credit:CREDIT,trap:topic.trap,tip:topic.tip,review:'Practice bank · educator review available',variant:mode+1};
+e=examify(topic,e,i);return {...e,id:`${topic.id}-${i+1}`,topic:topic.id,paper:topic.paper,index:i,credit:CREDIT,trap:topic.trap,tip:topic.tip,review:'Original exam-style practice · educator review available',variant:mode+1};
 }
 
 export const glossary = [
