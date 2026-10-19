@@ -93,4 +93,4 @@ export function parseAnswer(raw){
  if(/^[+-]?\d+(?:\.\d+)?\/[+-]?\d+(?:\.\d+)?$/.test(s)){const[a,b]=s.split('/').map(Number);return b?a/b:NaN;}
  return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(s)?Number(s):NaN;
 }
-export function isCorrect(q,value){return q.type==='choice'?Number(value)===q.answer:Number.isFinite(parseAnswer(value))&&Math.abs(parseAnswer(value)-q.answer)<.011;}
+export function isCorrect(q,value){return q.type==='choice'?value!==null&&value!==undefined&&String(value).trim()!==''&&Number(value)===q.answer:Number.isFinite(parseAnswer(value))&&Math.abs(parseAnswer(value)-q.answer)<.011;}
