@@ -1,0 +1,17 @@
+{
+  "name": "Ledger Legends \u00b7 Grade 12 Accounting",
+  "short_name": "Ledger Legends",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f4",
+  "theme_color": "#604ca1",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
