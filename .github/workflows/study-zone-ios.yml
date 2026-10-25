@@ -1,0 +1,30 @@
+name: Study Zone iOS
+on:
+  push:
+    paths:
+      - 'study-zone-ios/**'
+      - '.github/workflows/study-zone-ios.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-check:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build device and simulator applications
+        run: bash study-zone-ios/build-ios.sh
+      - name: Open and check the iPhone application
+        run: bash study-zone-ios/test-simulator.sh
+      - name: Upload iOS build outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Study-Zone-iOS-build
+          path: |
+            study-zone-ios/build/Study-Zone-iOS-UNSIGNED.ipa
+            study-zone-ios/build/Study-Zone-iOS-Simulator.zip
+            study-zone-ios/build/smoke-test.json
+          if-no-files-found: error
+          retention-days: 30
