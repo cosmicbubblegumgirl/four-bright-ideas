@@ -1,4 +1,4 @@
-const CACHE='study-zone-campus-v5-registration';
+const CACHE='study-zone-campus-v6-contact-emails';
 const FILES=['./','index.html','styles.css','app.js','catalog.js','contact.js','classroom.js','classroom-api.js','manifest.webmanifest','assets/icon.svg','assets/apple-touch-icon.png','install-ios.html','assets/study-zone-logo.png','assets/studyzone-registration-certificate.png','data/diagrams.js','data/physics.js','data/mathematics.js','data/accounting.js','data/mathslit.js','data/questions.js','data/physics-videos.js','data/mathematics-videos.js','data/physics-papers.js','data/mathematics-papers.js','data/accounting-papers.js','data/mathslit-papers.js','data/physics-labs.js','data/mathematics-labs.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('study-zone-campus-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
